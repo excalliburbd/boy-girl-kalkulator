@@ -1,9 +1,19 @@
+// @flow
+
 import React, { Component } from 'react';
 
-class App extends Component {
+type Props = {
+  
+}
+
+type State = {
+
+}
+class App extends Component<Props, State> {
   render() {
     return (
       <div className="App">
+
       </div>
     );
   }
