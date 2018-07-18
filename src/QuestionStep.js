@@ -18,7 +18,7 @@ class QuestionStep extends Component {
       values
     } = this.props; 
   
-    if (type == 'dorpdown') {
+    if (type == 'dropdown') {
       //TODO: date age
     }
 

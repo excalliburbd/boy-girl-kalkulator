@@ -4,29 +4,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import QuestionStep from './QuestionStep';
+import StartStep from './StartStep';
+import Stepper from './Stepper';
 
-const StartStepContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-
-const StartButton = styled.button`
-  background: crimson;
-  border: none;
-  padding: .5em 1em;
-`;
-
-const StartStep = ({
-  handleStart
-}) => <StartStepContainer>
-  <StartButton onClick={ handleStart }>Start</StartButton>
-</StartStepContainer>;
-  
 const QuizContainer = styled.div`
   height: 100%;
 `;
+
+const addToHex = (num, value) => (parseInt(num, 16) + value).toString(16);
 
 class Quiz extends Component {
   state = {
@@ -64,6 +49,26 @@ class Quiz extends Component {
     }
   }
 
+  handleStepCalcuation = toAdd => {
+    this.setState(
+      (previousState, props) => {
+        const [
+          type,
+          ...values
+        ] = previousState.step.split('-');
+
+        return {
+          step: `${type}-${
+            values.map( value => addToHex(value, toAdd)).join('-')
+          }`
+        }
+      }
+    );
+  }
+
+  handleNextStep = () => this.handleStepCalcuation(16)
+  handlePreviousStep = () => this.handleStepCalcuation(-16)
+
   render() {
     const {
       step
@@ -76,6 +81,8 @@ class Quiz extends Component {
             <StartStep handleStart={this.handleQuizStart}/> :
             <QuestionStep { ...this.getProps() } />
         }
+        { step === 'start' ? null : <Stepper handleNext={this.handleNextStep}
+                                             handlePrevious={this.handlePreviousStep} /> }
       </QuizContainer>
     );
 
