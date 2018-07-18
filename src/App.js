@@ -1,22 +1,24 @@
-// @flow
-
 import React, { Component } from 'react';
+import styled from "styled-components";
 
-type Props = {
-  
-}
+import Quiz from './Quiz';
 
-type State = {
+const AppContainer = styled.div`
+  height: 100%;
+  background: #EFF0F0;
+  padding: 3rem;
+  height: 20rem;
+`;
 
-}
-class App extends Component<Props, State> {
-  render() {
-    return (
-      <div className="App">
+const Title = styled.h2`
+  text-align: center;
+  margin: 0;
+`;
 
-      </div>
-    );
-  }
-}
+const App = () =>
+  <AppContainer>
+    <Title>Gutt/Jente kalkulator</Title>
+    <Quiz /> 
+  </AppContainer>;
 
 export default App;
