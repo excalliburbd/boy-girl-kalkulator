@@ -10,10 +10,12 @@ const StepperContainer = styled.div`
 
 const Stepper = ({
   handleNext,
-  handlePrevious
+  handlePrevious,
+  disableNext,
+  disablePrevious
 }) => <StepperContainer>
-  <button onClick={handlePrevious}>Previous</button>
-  <button onClick={handleNext}>Next</button>
+  <button onClick={handlePrevious} disabled={disablePrevious} >Previous</button>
+  <button onClick={handleNext} disabled={disableNext} >Next</button>
 </StepperContainer>;
 
 export default Stepper;

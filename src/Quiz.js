@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import QuestionStep from './QuestionStep';
 import StartStep from './StartStep';
-import Stepper from './Stepper';
 
 const QuizContainer = styled.div`
   height: 100%;
@@ -15,7 +14,10 @@ const addToHex = (num, value) => (parseInt(num, 16) + value).toString(16);
 
 class Quiz extends Component {
   state = {
-    step: 'start'
+    step: 'start',
+    values: {
+      
+    }
   }
 
   handleQuizStart = () => {
@@ -79,10 +81,10 @@ class Quiz extends Component {
         { 
           step === 'start' ? 
             <StartStep handleStart={this.handleQuizStart}/> :
-            <QuestionStep { ...this.getProps() } />
+            <QuestionStep { ...this.getProps() }
+                          handleNext={this.handleNextStep}
+                          handlePrevious={this.handlePreviousStep} />
         }
-        { step === 'start' ? null : <Stepper handleNext={this.handleNextStep}
-                                             handlePrevious={this.handlePreviousStep} /> }
       </QuizContainer>
     );
 
