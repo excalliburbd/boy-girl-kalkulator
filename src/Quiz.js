@@ -89,6 +89,13 @@ class Quiz extends Component {
     this.handleStepCalcuation(-16);
   }
 
+  handleShowResult = selected => {
+    this.setValues(selected);
+    this.setState({
+      step: 'result'
+    });
+  }
+
   renderStep = (step) => {
     switch (step) {
       case 'start':
@@ -97,8 +104,10 @@ class Quiz extends Component {
         return <ResultStep values={this.state.values} />
       default:
         return <QuestionStep  { ...this.getProps() }
+                              previousValues={this.state.values}
                               handleNext={this.handleNextStep}
-                              handlePrevious={this.handlePreviousStep} />;
+                              handlePrevious={this.handlePreviousStep}
+                              handleShowResult={this.handleShowResult} />;
     }
   }
 

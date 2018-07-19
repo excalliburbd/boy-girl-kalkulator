@@ -27,21 +27,46 @@ class QuestionStep extends Component {
     }))
   }
 
-  clearState = fn => {
+  handleNext = () =>  {
+    const {
+      handleNext,
+      serial,
+      handleShowResult
+    } = this.props;
+
     const {
       selected
     } = this.state;
 
-    this.setState((prevState, props) => ({
-      selected: null
-    }));
-
-    return fn(selected);
+    if (serial === '5') {
+      handleShowResult(selected);
+    } else {
+      handleNext(selected);
+      this.setState((prevState, props) => ({
+        selected: null
+      }));
+    } 
   }
 
-  handleNext = () =>  this.clearState(this.props.handleNext)
+  handlePrevious = () => {
+    const {
+      handlePrevious,
+      serial,
+      previousValues } = this.props;
+    
+    handlePrevious({
+      serial,
+      value: null
+    });
 
-  handlePrevious = () => this.clearState(this.props.handlePrevious)
+    const previousIndex = (parseInt(serial, 10) - 1).toString(10);
+    this.setState((prevState, props) => ({
+      selected: {
+        serial: previousIndex,
+        value: previousValues[previousIndex]
+      }
+    }));
+  }
 
   render() { 
     const {
@@ -72,7 +97,7 @@ class QuestionStep extends Component {
       </OptionsContainer>
       <Stepper handleNext={this.handleNext}
                handlePrevious={this.handlePrevious}
-               disableNext={ values[0] === '5a'}
+               disableNext={!selected}
                disablePrevious={ values[0] === '1a' } />
     </QuestionContainer>;
   }
