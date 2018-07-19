@@ -10,7 +10,14 @@ const QuestionContainer = styled.div`
 const OptionsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around; 
+  justify-content: space-around;
+`;
+
+const CrossIconContainer = styled.h1`
+  font-size: 10em;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 `;
 
 class QuestionStep extends Component {
@@ -93,7 +100,10 @@ class QuestionStep extends Component {
                                   onClick={() => this.handleSelect(value)} />
           )
         }
-        <p>Neither</p>
+        <div onClick={() => this.handleSelect("")}>
+          <p style={{textAlign: 'center'}}>Neither</p>
+          <CrossIconContainer>x</CrossIconContainer>
+        </div>
       </OptionsContainer>
       <Stepper handleNext={this.handleNext}
                handlePrevious={this.handlePrevious}
