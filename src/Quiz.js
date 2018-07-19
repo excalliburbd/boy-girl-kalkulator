@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import QuestionStep from './QuestionStep';
 import StartStep from './StartStep';
+import ResultStep from './ResultStep';
 
 const QuizContainer = styled.div`
   height: 100%;
@@ -22,7 +23,7 @@ class Quiz extends Component {
 
   handleQuizStart = () => {
     this.setState(
-      (prevState, props) => ({
+    (prevState, props) => ({
         step: 'radio-1a-1b'
       })
     )
@@ -46,7 +47,8 @@ class Quiz extends Component {
 
       return {
         type,
-        values
+        values,
+        serial: values[0][0]
       }
     }
   }
@@ -68,26 +70,46 @@ class Quiz extends Component {
     );
   }
 
-  handleNextStep = () => this.handleStepCalcuation(16)
-  handlePreviousStep = () => this.handleStepCalcuation(-16)
+  setValues = valueMap => {
+    this.setState((previousState, props) => ({
+      values: {
+        ...previousState.values,
+        [valueMap.serial]: valueMap.value
+      }
+    }));
+  }
+
+  handleNextStep = selected => {
+    this.setValues(selected);
+    this.handleStepCalcuation(16);
+  }
+
+  handlePreviousStep = deselected => {
+    this.setValues(deselected);
+    this.handleStepCalcuation(-16);
+  }
+
+  renderStep = (step) => {
+    switch (step) {
+      case 'start':
+        return <StartStep handleStart={this.handleQuizStart}/>;        
+      case 'result':
+        return <ResultStep values={this.state.values} />
+      default:
+        return <QuestionStep  { ...this.getProps() }
+                              handleNext={this.handleNextStep}
+                              handlePrevious={this.handlePreviousStep} />;
+    }
+  }
 
   render() {
-    const {
-      step
-    } = this.state;
-
     return (
       <QuizContainer>
-        { 
-          step === 'start' ? 
-            <StartStep handleStart={this.handleQuizStart}/> :
-            <QuestionStep { ...this.getProps() }
-                          handleNext={this.handleNextStep}
-                          handlePrevious={this.handlePreviousStep} />
+        {
+          this.renderStep(this.state.step)
         }
       </QuizContainer>
     );
-
   }
 }
 

@@ -20,31 +20,40 @@ class QuestionStep extends Component {
 
   handleSelect = value => {
     this.setState((prevState, props) => ({
-      selected: value
+      selected: {
+        value,
+        serial: this.props.serial
+      }
     }))
   }
 
   clearState = fn => {
+    const {
+      selected
+    } = this.state;
+
     this.setState((prevState, props) => ({
       selected: null
     }));
 
-    return fn();
+    return fn(selected);
   }
+
+  handleNext = () =>  this.clearState(this.props.handleNext)
+
+  handlePrevious = () => this.clearState(this.props.handlePrevious)
 
   render() { 
     const {
       type,
-      values,
-      handleNext,
-      handlePrevious
+      values
     } = this.props;
 
     const {
       selected
     } = this.state;
   
-    if (type == 'dropdown') {
+    if (type === 'dropdown') {
       //TODO: date age
     }
 
@@ -61,8 +70,8 @@ class QuestionStep extends Component {
         }
         <p>Neither</p>
       </OptionsContainer>
-      <Stepper handleNext={this.clearState.bind(this, handleNext)}
-               handlePrevious={this.clearState.bind(this, handlePrevious)}
+      <Stepper handleNext={this.handleNext}
+               handlePrevious={this.handlePrevious}
                disableNext={ values[0] === '5a'}
                disablePrevious={ values[0] === '1a' } />
     </QuestionContainer>;
