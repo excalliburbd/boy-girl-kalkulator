@@ -22,7 +22,9 @@ const CrossIconContainer = styled.h1`
 
 class QuestionStep extends Component {
   state = {
-    selected: null
+    selected: null,
+    age: '',
+    month: ''
   }
 
   handleSelect = value => {
@@ -38,21 +40,35 @@ class QuestionStep extends Component {
     const {
       handleNext,
       serial,
-      handleShowResult
+      handleShowResult,
+      type
     } = this.props;
 
     const {
-      selected
+      selected,
+      month,
+      age
     } = this.state;
 
-    if (serial === '5') {
-      handleShowResult(selected);
-    } else {
-      handleNext(selected);
+    if (type === 'dropdown') {
+      const ans = (parseInt(month, 10) + parseInt(age, 10)) % 2;
+      handleNext({
+          value: (ans === 0) ? '' : '4a',
+          serial: this.props.serial
+        });
       this.setState((prevState, props) => ({
         selected: null
       }));
-    } 
+    } else {
+      if (serial === '5') {
+        handleShowResult(selected);
+      } else {
+        handleNext(selected);
+        this.setState((prevState, props) => ({
+          selected: null
+        }));
+      }
+    }
   }
 
   handlePrevious = () => {
@@ -75,6 +91,29 @@ class QuestionStep extends Component {
     }));
   }
 
+  handleSetAge = event => {
+    const value = event.target.value;
+    const {
+      month
+    } = this.state;
+    this.setState((previousState, props) => ({
+      age: value,
+      selected: (!!month && !!value) ? true : false
+    }));
+  }
+
+  handleSetMonth = event => {
+    const value = event.target.value;
+    const {
+      age
+    } = this.state;
+
+    this.setState((previousState, props) => ({
+      month: value,
+      selected: (!!age && !!value) ? true : false
+    }));
+  }
+
   render() { 
     const {
       type,
@@ -82,29 +121,49 @@ class QuestionStep extends Component {
     } = this.props;
 
     const {
-      selected
+      selected,
+      age,
+      month
     } = this.state;
   
-    if (type === 'dropdown') {
-      //TODO: date age
-    }
 
     return <QuestionContainer>
-      <OptionsContainer>
-        {
-          values.map(
-            (value, key) =>  <img src={require(`./assets/quiz/${value}.jpg`)} 
-                                  alt={`option ${key+1}`} 
-                                  key={value}
-                                  selected={value === selected}
-                                  onClick={() => this.handleSelect(value)} />
-          )
-        }
-        <div onClick={() => this.handleSelect("")}>
-          <p style={{textAlign: 'center'}}>Neither</p>
-          <CrossIconContainer>x</CrossIconContainer>
-        </div>
-      </OptionsContainer>
+      { 
+        (type === 'radio')
+          ? <OptionsContainer>
+              {
+                values.map(
+                  (value, key) =>  <img src={require(`./assets/quiz/${value}.jpg`)} 
+                                        alt={`option ${key+1}`} 
+                                        key={value}
+                                        selected={value === selected}
+                                        onClick={() => this.handleSelect(value)} />
+                )
+              }
+              <div onClick={() => this.handleSelect("")}>
+                <p style={{textAlign: 'center'}}>Neither</p>
+                <CrossIconContainer>x</CrossIconContainer>
+              </div>
+            </OptionsContainer>
+          : <OptionsContainer>
+              <input type="number" value={age} onChange={this.handleSetAge}/>
+              <select value={month} onChange={this.handleSetMonth}>
+                  <option value="">Velg måned</option>
+                  <option value="1">Januar</option>
+                  <option value="2">Februar</option>
+                  <option value="3">Mars</option>
+                  <option value="4">April</option>
+                  <option value="5">Mai</option>
+                  <option value="6">Juni</option>
+                  <option value="7">Juli</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">Oktober</option>
+                  <option value="11">November</option>
+                  <option value="12">Desember</option>
+              </select>
+            </OptionsContainer>
+      }
       <Stepper handleNext={this.handleNext}
                handlePrevious={this.handlePrevious}
                disableNext={!selected}

@@ -61,8 +61,16 @@ class Quiz extends Component {
           ...values
         ] = previousState.step.split('-');
 
+        if ((values[0][0] === '3' && toAdd === 16) || (values[0][0] === '5' && toAdd === -16)) {
+          return {
+            step: `dropdown-${
+              values.map( value => addToHex(value, toAdd)).join('-')
+            }`
+          }
+        }
+
         return {
-          step: `${type}-${
+          step: `radio-${
             values.map( value => addToHex(value, toAdd)).join('-')
           }`
         }
