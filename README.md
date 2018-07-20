@@ -5,6 +5,14 @@
   npm start
 ```
 
+to render on site 
+  - first build using `npm run build`
+  - then add the complied js to the site
+  - add `<div id="kalkulator_root"></div>` where you want it to render
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

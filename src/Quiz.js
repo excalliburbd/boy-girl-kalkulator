@@ -57,6 +57,7 @@ class Quiz extends Component {
     this.setState(
       (previousState, props) => {
         const [
+          // eslint-disable-next-line
           type,
           ...values
         ] = previousState.step.split('-');
