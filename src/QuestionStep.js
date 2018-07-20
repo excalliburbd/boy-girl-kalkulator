@@ -18,6 +18,19 @@ const CrossIconContainer = styled.h1`
   text-align: center;
   margin: 0;
   padding: 0;
+  cursor: pointer;
+  ${({selected}) => selected ? `
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+  ` : ''}
+`;
+
+const OptionsImage = styled.img`
+  cursor: pointer;
+  ${({selected}) => selected ? `
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+  ` : ''}
 `;
 
 class QuestionStep extends Component {
@@ -133,16 +146,16 @@ class QuestionStep extends Component {
           ? <OptionsContainer>
               {
                 values.map(
-                  (value, key) =>  <img src={require(`./assets/quiz/${value}.jpg`)} 
-                                        alt={`option ${key+1}`} 
-                                        key={value}
-                                        selected={value === selected}
-                                        onClick={() => this.handleSelect(value)} />
+                  (value, key) =>  <OptionsImage  src={require(`./assets/quiz/${value}.jpg`)} 
+                                                  alt={`option ${key+1}`} 
+                                                  key={value}
+                                                  selected={selected && value === selected.value}
+                                                  onClick={() => this.handleSelect(value)} />
                 )
               }
               <div onClick={() => this.handleSelect("")}>
                 <p style={{textAlign: 'center'}}>Neither</p>
-                <CrossIconContainer>x</CrossIconContainer>
+                <CrossIconContainer selected={selected && selected.value === ''} >x</CrossIconContainer>
               </div>
             </OptionsContainer>
           : <OptionsContainer>
