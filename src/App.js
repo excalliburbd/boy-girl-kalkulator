@@ -7,7 +7,7 @@ const AppContainer = styled.div`
   height: 100%;
   background: #EFF0F0;
   padding: 3rem;
-  height: 20rem;
+  height: 25rem;
 `;
 
 const Title = styled.h2`

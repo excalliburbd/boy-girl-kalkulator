@@ -17,7 +17,7 @@ const StartButton = styled.button`
 const StartStep = ({
   handleStart
 }) => <StartStepContainer>
-  <StartButton onClick={ handleStart }>Start</StartButton>
+  <StartButton onClick={ handleStart }>Start testen</StartButton>
 </StartStepContainer>;
 
 export default StartStep;

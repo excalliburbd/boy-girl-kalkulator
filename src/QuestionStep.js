@@ -130,7 +130,8 @@ class QuestionStep extends Component {
   render() { 
     const {
       type,
-      values
+      values,
+      options
     } = this.props;
 
     const {
@@ -146,35 +147,43 @@ class QuestionStep extends Component {
           ? <OptionsContainer>
               {
                 values.map(
-                  (value, key) =>  <OptionsImage  src={require(`./assets/quiz/${value}.jpg`)} 
-                                                  alt={`option ${key+1}`} 
-                                                  key={value}
-                                                  selected={selected && value === selected.value}
-                                                  onClick={() => this.handleSelect(value)} />
+                  (value, key) =>  
+                    <div onClick={() => this.handleSelect(value)} key={value}>
+                      <p style={{textAlign: 'center'}}>{options[key]}</p>
+                      <OptionsImage  src={require(`./assets/quiz/${value}.jpg`)} 
+                                                      alt={`option ${key}`}                                                    
+                                                      selected={selected && value === selected.value} />
+                    </div> 
                 )
               }
               <div onClick={() => this.handleSelect("")}>
-                <p style={{textAlign: 'center'}}>Neither</p>
+                <p style={{textAlign: 'center'}}>Ingen av delene</p>
                 <CrossIconContainer selected={selected && selected.value === ''} >x</CrossIconContainer>
               </div>
             </OptionsContainer>
           : <OptionsContainer>
-              <input type="number" value={age} onChange={this.handleSetAge}/>
-              <select value={month} onChange={this.handleSetMonth}>
-                  <option value="">Velg måned</option>
-                  <option value="1">Januar</option>
-                  <option value="2">Februar</option>
-                  <option value="3">Mars</option>
-                  <option value="4">April</option>
-                  <option value="5">Mai</option>
-                  <option value="6">Juni</option>
-                  <option value="7">Juli</option>
-                  <option value="8">August</option>
-                  <option value="9">September</option>
-                  <option value="10">Oktober</option>
-                  <option value="11">November</option>
-                  <option value="12">Desember</option>
-              </select>
+              <div>
+                <p style={{textAlign: 'center'}}>Mors alder:</p>
+                <input type="number" value={age} onChange={this.handleSetAge}/>
+              </div>
+              <div>
+                <p style={{textAlign: 'center'}}>Måned:</p>
+                <select value={month} onChange={this.handleSetMonth}>
+                    <option value="">Velg måned</option>
+                    <option value="1">Januar</option>
+                    <option value="2">Februar</option>
+                    <option value="3">Mars</option>
+                    <option value="4">April</option>
+                    <option value="5">Mai</option>
+                    <option value="6">Juni</option>
+                    <option value="7">Juli</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">Desember</option>
+                </select>
+              </div>
             </OptionsContainer>
       }
       <Stepper handleNext={this.handleNext}

@@ -73,8 +73,9 @@ class ResultStep extends Component {
           <Icons src={require('./assets/result/icon_girl.png')} alt="girl"/>
         </IconsContainer>
         <p style={{textAlign: 'center'}}>
+          Det er størst sjanse for at du får en liten 
           {
-            result >= 49 ? "The baby more likely a girl" : "The baby is more likely a boy"
+            result >= 49 ? "jente" : "gutten"
           }
         </p>
       </div>

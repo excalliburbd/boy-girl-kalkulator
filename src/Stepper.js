@@ -14,8 +14,8 @@ const Stepper = ({
   disableNext,
   disablePrevious
 }) => <StepperContainer>
-  <button onClick={handlePrevious} disabled={disablePrevious} >Previous</button>
-  <button onClick={handleNext} disabled={disableNext} >Next</button>
+  <button onClick={handlePrevious} disabled={disablePrevious} >Forrige</button>
+  <button onClick={handleNext} disabled={disableNext} >Neste</button>
 </StepperContainer>;
 
 export default Stepper;

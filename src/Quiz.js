@@ -13,6 +13,14 @@ const QuizContainer = styled.div`
 
 const addToHex = (num, value) => (parseInt(num, 16) + value).toString(16);
 
+const options = [
+  ['Tutmage/spiss mage', 'Rund mage'],
+  ['Lite eller ikke kvalm', 'Mye kvalme'],
+  ['Under 140 slag i minuttet', 'Over 140 slag i minuttet'],
+  ['', ''],
+  ['Barnet sparker livlig', 'Barnet er bedagelig']
+];
+
 class Quiz extends Component {
   state = {
     step: 'start',
@@ -48,7 +56,8 @@ class Quiz extends Component {
       return {
         type,
         values,
-        serial: values[0][0]
+        serial: values[0][0],
+        options: options[parseInt(values[0][0], 10) - 1]
       }
     }
   }
